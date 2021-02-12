@@ -8,33 +8,35 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name="archive-books")
+@Table(name="book")
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 public class Book implements Serializable {
+
+    private static final long serialVersionUID = -7055707354641685721L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="bookId")
+    @Column(name="BookId")
     private Long id;
 
-    @Column(name="bookTitle", nullable = false, unique = false)
+    @Column(name="BookTitle", nullable = false)
     private String title;
 
-    @Column(name="bookAuthor", nullable = false)
+    @Column(name="BookAuthor", nullable = false)
     private String author;
 
-    @Column(name="bookDescription")
+    @Column(name="BookDescription")
     private String description;
 
-    @Column(name="bookRating")
+    @Column(name="BookRating")
     private int rating;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name="bookPublished")
-    private Date published;
+    @Column(name="BookPublished")
+    private String published;
 
 
     public BookModel toModel(){
@@ -49,11 +51,13 @@ public class Book implements Serializable {
         return bookModel;
     }
 
+    @Override
     public String toString(){
-        return "Title: " + title
+        return "\r\nId: " + id
+                + "\r\nTitle: " + title
                 + "\r\nAuthor: " + author
                 + "\r\nDescription: " + description
                 + "\r\nPublished: " + published
-                + "\r\nRating: " + rating;
+                + "\r\nRating: " + rating + "\r\n";
     }
 }
