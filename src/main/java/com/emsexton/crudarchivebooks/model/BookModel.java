@@ -13,7 +13,7 @@ public class BookModel {
     private String author;
     private String description;
     private int rating;
-    private Date published;
+    private String published;
 
 
 }
