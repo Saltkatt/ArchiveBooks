@@ -14,6 +14,8 @@ public class BookModel {
     private String description;
     private int rating;
     private String published;
+    private String language;
+    private String genre;
 
 
 }

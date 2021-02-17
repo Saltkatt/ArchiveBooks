@@ -38,6 +38,13 @@ public class Book implements Serializable {
     @Column(name="BookPublished")
     private String published;
 
+    @Column(name="BookLanguage")
+    private String language;
+
+    @Column(name="BookGenre")
+    private String genre;
+
+
 
     public BookModel toModel(){
         BookModel bookModel = new BookModel();
@@ -47,6 +54,9 @@ public class Book implements Serializable {
         bookModel.setDescription(getDescription());
         bookModel.setPublished(getPublished());
         bookModel.setRating(getRating());
+        bookModel.setGenre(getGenre());
+        bookModel.setLanguage(getLanguage());
+
 
         return bookModel;
     }
@@ -58,6 +68,8 @@ public class Book implements Serializable {
                 + "\r\nAuthor: " + author
                 + "\r\nDescription: " + description
                 + "\r\nPublished: " + published
+                + "\r\nLanguage: " + language
+                + "\r\nGenre: " + genre
                 + "\r\nRating: " + rating + "\r\n";
     }
 }
