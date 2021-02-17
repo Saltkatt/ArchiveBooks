@@ -57,7 +57,7 @@ public class BookController {
         }
     }
 
-    @GetMapping("/books/")
+    @GetMapping("/books/year/")
     public ResponseEntity<List> findBookByYear(@RequestParam(value = "year") String year){
         try{
             List book = bookService.findBookByYear(year);
@@ -66,12 +66,12 @@ public class BookController {
 
         }catch (Exception e){
             e.printStackTrace();
-            log.error("Error: Unable to find book by author: " + year);
+            log.error("Error: Unable to find book by year: " + year);
             return ResponseEntity.notFound().build();
         }
     }
 
-    @GetMapping("/books/")
+    @GetMapping("/books/language")
     public ResponseEntity<List> findBookByLanguage(@RequestParam(value = "language") String language){
         try{
             List book = bookService.findBookByLanguage(language);
@@ -80,7 +80,7 @@ public class BookController {
 
         }catch (Exception e){
             e.printStackTrace();
-            log.error("Error: Unable to find book by author: " + language);
+            log.error("Error: Unable to find book by language: " + language);
             return ResponseEntity.notFound().build();
         }
     }
