@@ -35,8 +35,8 @@ public class Book implements Serializable {
     @Column(name="BookRating")
     private int rating;
 
-    @Column(name="BookPublished")
-    private String published;
+    @Column(name="BookYear")
+    private String year;
 
     @Column(name="BookLanguage")
     private String language;
@@ -52,7 +52,7 @@ public class Book implements Serializable {
         bookModel.setTitle(getTitle());
         bookModel.setAuthor(getAuthor());
         bookModel.setDescription(getDescription());
-        bookModel.setPublished(getPublished());
+        bookModel.setYear(getYear());
         bookModel.setRating(getRating());
         bookModel.setGenre(getGenre());
         bookModel.setLanguage(getLanguage());
@@ -67,7 +67,7 @@ public class Book implements Serializable {
                 + "\r\nTitle: " + title
                 + "\r\nAuthor: " + author
                 + "\r\nDescription: " + description
-                + "\r\nPublished: " + published
+                + "\r\nYear: " + year
                 + "\r\nLanguage: " + language
                 + "\r\nGenre: " + genre
                 + "\r\nRating: " + rating + "\r\n";
