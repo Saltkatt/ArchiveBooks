@@ -29,24 +29,11 @@ public class BookController {
         return bookService.findAllBooks();
     }
 
-   /* @GetMapping("/books/{id}")
-    public ResponseEntity<Book> findBookById(@PathVariable(value = "id") Long id){
-        try{
-            Book book = bookService.findBookById(id);
-
-            return ResponseEntity.ok().body(book);
-        }catch(Exception e){
-            e.printStackTrace();
-            log.error("Error: Unable to delete book by id: " + id);
-            return ResponseEntity.notFound().build();
-        }
-
-    }*/
-
     @GetMapping("/book/{id}")
     public ResponseEntity<Book> findBookById(@PathVariable(value = "id") Long id){
         try{
             Book book = bookService.findBookById(id);
+            log.error("Book found by id: " + id);
             return ResponseEntity.ok().body(book);
 
         }catch(Exception e){
@@ -55,33 +42,31 @@ public class BookController {
             return ResponseEntity.notFound().build();
         }
     }
-    //requestparam should be used for frontend
-   /* @GetMapping("/books/")
-    public String findBookByAuthor(@RequestParam(value = "author") String author){
-        try{
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            List book = bookService.findBookByAuthor(author);
-            System.out.println(book);
-            msg = book.toString();
-            System.out.println("£££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££");
-            return msg;
-        }catch (Exception e){
-            e.printStackTrace();
-            msg = "Error: Unable to find book by author: " + author;
-            log.error("Error: Unable to find book by author: " + author);
-            return msg;
-        }
-    }*/
 
     @GetMapping("/books/")
     public ResponseEntity<List> findBookByAuthor(@RequestParam(value = "author") String author){
         try{
             List book = bookService.findBookByAuthor(author);
+            log.error("Book by author: " + author + "has been found");
             return ResponseEntity.ok().body(book);
 
         }catch (Exception e){
             e.printStackTrace();
             log.error("Error: Unable to find book by author: " + author);
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/books/")
+    public ResponseEntity<List> findBookByYear(@RequestParam(value = "year") String year){
+        try{
+            List book = bookService.findBookByYear(year);
+            log.error("Book by year: " + year + "has been found");
+            return ResponseEntity.ok().body(book);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("Error: Unable to find book by author: " + year);
             return ResponseEntity.notFound().build();
         }
     }
@@ -92,6 +77,7 @@ public class BookController {
             msg = "Book has been added to archive" + "\r\n" + book.toString();
             bookService.save(book);
             //System.out.println(book);
+            log.error("Book has been added.");
             return ResponseEntity.ok().body(book);
 
         }catch(Exception e) {
@@ -103,17 +89,18 @@ public class BookController {
     }
 
     @DeleteMapping("/books/{id}")
-    public String deleteBook(@PathVariable("id") Long id){
+    public ResponseEntity<Book> deleteBook(@PathVariable("id") Long id){
         try{
             msg = "Book deleted";
             bookService.delete(id);
-            return msg;
+            log.error("Book id: " + id + "has been deleted");
+            return ResponseEntity.ok().build();
         }
         catch (Exception e){
             e.printStackTrace();
-            msg = "Error: Unable to delete book by id: " + id;
+            //msg = "Error: Unable to delete book by id: " + id;
             log.error("Unable to delete book by id: " + id);
-            return msg;
+            return ResponseEntity.notFound().build();
         }
     }
 
