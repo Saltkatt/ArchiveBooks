@@ -42,16 +42,15 @@ public class BookController {
     }*/
 
     @GetMapping("/book/{id}")
-    public String findBookById(@PathVariable(value = "id") Long id){
+    public ResponseEntity<Book> findBookById(@PathVariable(value = "id") Long id){
         try{
             Book book = bookService.findBookById(id);
-            msg = book.toString();
-            return msg;
+            return ResponseEntity.ok().body(book);
+
         }catch(Exception e){
             e.printStackTrace();
-            msg = "Error: Unable to find book by id: " + id;
             log.error("Error: Unable to find book by id: " + id);
-            return msg;
+            return ResponseEntity.notFound().build();
         }
     }
     //requestparam should be used for frontend
