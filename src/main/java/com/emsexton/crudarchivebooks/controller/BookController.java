@@ -11,6 +11,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.ws.Response;
+
 @RestController
 @RequestMapping("/archive")
 public class BookController {
@@ -85,18 +87,18 @@ public class BookController {
     }
 
     @PostMapping("/books")
-    public String createBook(@RequestBody Book book){
+    public ResponseEntity<Book> createBook(@RequestBody Book book){
         try{
             msg = "Book has been added to archive" + "\r\n" + book.toString();
             bookService.save(book);
             //System.out.println(book);
-            return msg;
+            return ResponseEntity.ok().body(book);
 
         }catch(Exception e) {
             e.printStackTrace();
-            msg = "Error: Unable to add new book";
+            //msg = "Error: Unable to add new book";
             log.error("Unable to add new book");
-            return msg;
+            return ResponseEntity.badRequest().build();
         }
     }
 
