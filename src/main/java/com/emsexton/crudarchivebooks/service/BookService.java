@@ -56,17 +56,23 @@ public class BookService {
         return books;
     }*/
 
-    public List findBookByAuthor(String author) {
+    public List<Book> findBookByAuthor(String author) {
 
-        List book = bookRepository.findByAuthor(author);
-        System.out.println(book);
+        List<Book> books = bookRepository.findByAuthor(author);
+        System.out.println(books);
 
-        return book;
+        return books;
     }
 
-    public List findBookByYear(String year) {
-        List book = bookRepository.findByYear(year);
-        System.out.println(book);
-        return book;
+    public List<Book> findBookByYear(String year) {
+        List<Book> books = bookRepository.findByYear(year);
+        System.out.println(books);
+        return books;
+    }
+
+    public List<Book> findBookByLanguage(String language) {
+        List<Book> books = bookRepository.findByLanguage(language);
+        System.out.println(books);
+        return books;
     }
 }

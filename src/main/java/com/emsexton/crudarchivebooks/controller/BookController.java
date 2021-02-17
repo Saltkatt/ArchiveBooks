@@ -71,6 +71,20 @@ public class BookController {
         }
     }
 
+    @GetMapping("/books/")
+    public ResponseEntity<List> findBookByLanguage(@RequestParam(value = "language") String language){
+        try{
+            List book = bookService.findBookByLanguage(language);
+            log.error("Book by language: " + language + "has been found");
+            return ResponseEntity.ok().body(book);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("Error: Unable to find book by author: " + language);
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping("/books")
     public ResponseEntity<Book> createBook(@RequestBody Book book){
         try{
