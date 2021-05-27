@@ -1,7 +1,7 @@
 package com.emsexton.crudarchivebooks.controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import com.emsexton.crudarchivebooks.entity.Book;
-import com.emsexton.crudarchivebooks.exception.ResourceNotFoundException;
 import com.emsexton.crudarchivebooks.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +11,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.ws.Response;
 
 @RestController
 @RequestMapping("/archive")
@@ -24,11 +23,13 @@ public class BookController {
 
     String msg = "Information regarding CRUD services";
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/books")
     public List<Book> findAllBooks(){
         return bookService.findAllBooks();
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/book/{id}")
     public ResponseEntity<Book> findBookById(@PathVariable(value = "id") Long id){
         try{
@@ -43,6 +44,7 @@ public class BookController {
         }
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/books/")
     public ResponseEntity<List> findBookByAuthor(@RequestParam(value = "author") String author){
         try{
@@ -57,6 +59,7 @@ public class BookController {
         }
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/books/year/")
     public ResponseEntity<List> findBookByYear(@RequestParam(value = "year") String year){
         try{
@@ -71,6 +74,7 @@ public class BookController {
         }
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/books/language")
     public ResponseEntity<List> findBookByLanguage(@RequestParam(value = "language") String language){
         try{
@@ -85,6 +89,7 @@ public class BookController {
         }
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/books")
     public ResponseEntity<Book> createBook(@RequestBody Book book){
         try{
@@ -102,12 +107,13 @@ public class BookController {
         }
     }
 
+    @CrossOrigin(origins = "*")
     @DeleteMapping("/books/{id}")
     public ResponseEntity<Book> deleteBook(@PathVariable("id") Long id){
         try{
             msg = "Book deleted";
             bookService.delete(id);
-            log.error("Book id: " + id + "has been deleted");
+            log.error("Book id: " + id + " has been deleted");
             return ResponseEntity.ok().build();
         }
         catch (Exception e){
