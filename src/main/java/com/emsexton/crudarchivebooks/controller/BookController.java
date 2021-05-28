@@ -1,5 +1,6 @@
 package com.emsexton.crudarchivebooks.controller;
 
+import com.emsexton.crudarchivebooks.util.RabbitMQSend;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import com.emsexton.crudarchivebooks.entity.Book;
 import com.emsexton.crudarchivebooks.service.BookService;
@@ -97,6 +98,7 @@ public class BookController {
             bookService.save(book);
             //System.out.println(book);
             log.error("Book has been added.");
+            RabbitMQSend.bookAdded(book);
             return ResponseEntity.ok().body(book);
 
         }catch(Exception e) {
@@ -112,8 +114,10 @@ public class BookController {
     public ResponseEntity<Book> deleteBook(@PathVariable("id") Long id){
         try{
             msg = "Book deleted";
+
             bookService.delete(id);
             log.error("Book id: " + id + " has been deleted");
+            RabbitMQSend.bookDeleted(id);
             return ResponseEntity.ok().build();
         }
         catch (Exception e){
