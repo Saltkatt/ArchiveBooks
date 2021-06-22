@@ -64,6 +64,14 @@ public class BookService {
         return books;
     }
 
+    public List<Book> findBookByTitle(String title) {
+
+        List<Book> books = bookRepository.findByTitle(title);
+        System.out.println(books);
+
+        return books;
+    }
+
     public List<Book> findBookByYear(String year) {
         List<Book> books = bookRepository.findByYear(year);
         System.out.println(books);
